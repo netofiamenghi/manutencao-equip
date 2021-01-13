@@ -1,0 +1,65 @@
+<html>
+<head th:replace="~{base :: head}"></head>
+<body onload="onLoad()">
+
+	<div th:replace="~{base :: logo}"></div>
+	<div th:replace="~{base :: menu}"></div>
+
+	<div class="container" id="ordens">
+	
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container">
+				<h1 class="display-4">Ordens de Serviço</h1>
+			</div>
+		</div>
+
+		<nav class="navbar navbar-expand navbar-light bg-light mb-3">
+			<div class="navbar-nav">
+				<a class="nav-item nav-link" href="/ordens">Todas</a> 
+				<a class="nav-item nav-link" href="/novas">Novas</a>
+				<a class="nav-item nav-link active" href="/iniciadas">Iniciadas</a>
+				<a class="nav-item nav-link" href="/pendentes">Pendentes</a>
+				<a class="nav-item nav-link" href="/finalizadas">Finalizadas</a>
+			</div>
+		</nav>
+
+
+		<div class="card mb-3" v-for="ordem in ordensServico">
+			
+				<div class="card-header alert-primary">
+					Ordem Nº {{ ordem.id }} ( {{ordem.status}} ) - Cliente: {{ordem.nomeCliente}}
+				</div>
+			
+			<div class="card-body d-flex justify-content-between">
+				<div>
+					<div>Equipamento: {{ordem.tipoEquipamento}}</div>
+					<div>Problema: {{ordem.problemaEquipamento}}</div>
+					<div>Detalhe Execução: {{ordem.detalheExecucao}}</div>
+				</div>
+				<div class="mt-4">
+					<a :href="'/carregar/' + ordem.id"><button class="btn btn-primary">Atualizar</button></a>	
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		function onLoad(){
+			
+			var app = new Vue({
+				el: '#ordens',
+				data: {
+					ordensServico: [ ]
+				},
+				  mounted () {
+				    axios
+				      .get('http://localhost:8080/api/ordens/iniciadas')
+				      .then(response => (this.ordensServico = response.data))
+				  }
+			});
+		}
+	
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+</html>

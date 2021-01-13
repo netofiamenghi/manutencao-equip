@@ -1,0 +1,85 @@
+<html>
+<head th:replace="~{base :: head}"></head>
+<body>
+
+	<div th:replace="~{base :: logo}"></div>
+	<div th:replace="~{base :: menu}"></div>
+
+
+	<div class="container">
+
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container">
+				<h1 class="display-4">Ordem de Serviço</h1>
+			</div>
+		</div>
+
+		<div class="card mt-3 p-3">
+			<form th:object="${requisicaoNovaOrdem}" class="card-body" th:action="@{/salvar}" method="POST">
+				<input type="hidden" th:field="*{id}"/>
+					<div class="row">
+						<div class="col-md-6 form-group mb-3">
+							<label for="nomeCliente">Nome do Cliente *</label>	 
+							<input th:field="*{nomeCliente}" th:errorclass="is-invalid" class="form-control" type="text" placeholder="nome do cliente" />
+							<div class="invalid-feedback" th:errors="*{nomeCliente}"></div>
+						</div>
+						<div class="col-md-6 form-group mb-3">
+							<label for="enderecoCliente">Endereço do Cliente *</label>	 
+							<input th:field="*{enderecoCliente}" th:errorclass="is-invalid" class="form-control" type="text" placeholder="endereço do cliente" />
+							<div class="invalid-feedback" th:errors="*{enderecoCliente}"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 form-group mb-3">
+							<label for="telefoneCliente">Telefone do Cliente *</label>	 
+							<input th:field="*{telefoneCliente}" th:errorclass="is-invalid" class="form-control" type="text" placeholder="telefone do cliente" />
+							<div class="invalid-feedback" th:errors="*{telefoneCliente}"></div>
+						</div>
+						<div class="col-md-6 form-group mb-3">
+							<label for="emailCliente">E-mail do Cliente *</label>	 
+							<input th:field="*{emailCliente}" th:errorclass="is-invalid" class="form-control" type="email" placeholder="e-mail do cliente" />
+							<div class="invalid-feedback" th:errors="*{emailCliente}"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 form-group mb-3">
+							<label for="tipoEquipmamento">Tipo do Equipamento *</label>	 
+							<input th:field="*{tipoEquipamento}" th:errorclass="is-invalid" class="form-control" type="text" placeholder="tipo do equipamento" />
+							<div class="invalid-feedback" th:errors="*{tipoEquipamento}"></div>
+						</div>
+						<div class="col-md-6 form-group mb-3">
+							<label for="marcaEquipmamento">Marca do Equipamento *</label>	 
+							<input th:field="*{marcaEquipamento}" th:errorclass="is-invalid" class="form-control" type="text" placeholder="marca do equipamento" />
+							<div class="invalid-feedback" th:errors="*{marcaEquipamento}"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 form-group mb-3">
+							<label for="problemaEquipamento">Problema do Equipamento *</label>	 
+							<input th:field="*{problemaEquipamento}" th:errorclass="is-invalid" class="form-control" type="text" placeholder="problema do equipamento" />
+							<div class="invalid-feedback" th:errors="*{problemaEquipamento}"></div>
+						</div>
+						<div class="col-md-6 form-group mb-3">
+							<label for="status">Status da Ordem</label>
+							<select th:field="*{status}" class="form-control">
+								<option value="NOVA">NOVA</option>
+								<option value="INICIADA">INICIADA</option>
+								<option value="PENDENTE">PENDENTE</option>
+								<option value="FINALIZADA">FINALIZADA</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group mb-3">
+							<label for="detalheExecucao">Detalhes da Execução</label>
+							<textarea th:field="*{detalheExecucao}" class="form-control" placeholder="detalhes da execução"></textarea>
+						</div>
+					<div class="text-muted d-flex justify-content-between">
+						<button class="btn btn-primary" type="submit">Salvar</button>
+						<small>* Campos obrigatórios</small>
+					</div>
+			</form>
+		</div>
+
+	</div>
+</body>
+</html>
